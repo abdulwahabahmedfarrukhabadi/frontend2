@@ -23,7 +23,7 @@ const SearchPage = () => {
 	const handleSearch = async (e) => {
 		e.preventDefault();
 		try {
-			const res = await axios.get(`https://backend-dun-iota.vercel.app/api/v1/search/${activeTab}/${searchTerm}`);
+			const res = await axios.get(`https://backend123-five.vercel.app/api/v1/search/${activeTab}/${searchTerm}`);
 			setResults(res.data.content);
 		} catch (error) {
 			if (error.response.status === 404) {

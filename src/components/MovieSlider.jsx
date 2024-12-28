@@ -18,7 +18,7 @@ const MovieSlider = ({ category }) => {
 
 	useEffect(() => {
 		const getContent = async () => {
-			const res = await axios.get(`https://backend-dun-iota.vercel.app/api/v1/${contentType}/${category}`);
+			const res = await axios.get(`https://backend123-five.vercel.app/api/v1/${contentType}/${category}`);
 			setContent(res.data.content);
 		};
 
