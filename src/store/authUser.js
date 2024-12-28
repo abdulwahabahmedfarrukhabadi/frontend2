@@ -1,6 +1,9 @@
-import axiosInstance from "./axiosInstance";
+import axiosInstance from "./axiosInstance.jsx";
 import toast from "react-hot-toast";
 import { create } from "zustand";
+
+
+const token = localStorage.getItem("token");
 
 export const useAuthStore = create((set) => ({
   user: null,
@@ -55,7 +58,12 @@ export const useAuthStore = create((set) => ({
   authCheck: async () => {
     set({ isCheckingAuth: true });
     try {
-      const response = await axiosInstance.get("/auth/authCheck");
+      const response = await axiosInstance.get("/auth/authCheck",{withCredentials: true},{
+        headers: {
+          Authorization: `Bearer ${token}`, // Ensure the token is sent as a Bearer token
+        },
+    }
+  );
       set({ user: response.data.user, isCheckingAuth: false });
     } catch (error) {
       console.error("Auth check error:", error);
