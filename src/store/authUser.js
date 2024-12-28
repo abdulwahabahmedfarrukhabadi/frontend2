@@ -56,25 +56,32 @@ export const useAuthStore = create((set) => ({
   },
 
   // Auth Check Action (Updated to match the format you requested)
-  authCheck: async () => {
-    set({ isCheckingAuth: true });
-    try {
-      const response = await axios({
-        method: "get",  // using post method
-        baseURL: "https://backend123-five.vercel.app/api/v1",  // Your base URL
-        url: "/auth/authCheck",  // URL for the endpoint
-        headers: {
-          "Authorization": `Bearer ${token}`, 
-          "Content-Type": "application/json", // Send the token as a Bearer token in the headers
-        },
-        data: {},  // No body data needed for this action
-        credentials: true,  // If required to include credentials like cookies
-      });
+  // Auth Check Action
+authCheck: async () => {
+  set({ isCheckingAuth: true });
+  try {
+    const response = await axios({
+      method: "get",  // Ensure this matches the server's expected method
+      baseURL: "https://backend123-five.vercel.app/api/v1",  // Your base URL
+      url: "/auth/authCheck",  // URL for the endpoint
+      headers: {
+        "Authorization": `Bearer ${token}`, 
+        "Content-Type": "application/json", // Send the token as a Bearer token in the headers
+      },
+      data: {},  // No body data needed for this action
+      credentials: true,  // If required to include credentials like cookies
+    });
 
-      set({ user: response.data.user, isCheckingAuth: false });
-    } catch (error) {
-      console.error("Auth check error:", error.response?.data || error.message);
-      set({ user: null, isCheckingAuth: false });
+    set({ user: response.data.user, isCheckingAuth: false });
+  } catch (error) {
+    if (error.response) {
+      console.error("Auth check error:", error.response.data || error.message);
+    } else if (error.request) {
+      console.error("Auth check error: No response received from server");
+    } else {
+      console.error("Auth check error:", error.message);
     }
-  },
+    set({ user: null, isCheckingAuth: false });
+  }
+}
 }));
