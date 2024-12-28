@@ -68,7 +68,7 @@ export const useAuthStore = create((set) => ({
           "Content-Type": "application/json", // Send the token as a Bearer token in the headers
         },
         data: {},  // No body data needed for this action
-        credentials: "include",  // If required to include credentials like cookies
+        credentials: true,  // If required to include credentials like cookies
       });
 
       set({ user: response.data.user, isCheckingAuth: false });
