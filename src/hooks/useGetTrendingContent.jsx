@@ -8,7 +8,7 @@ const useGetTrendingContent = () => {
 
 	useEffect(() => {
 		const getTrendingContent = async () => {
-			const res = await axios.get(`https://backend123-five.vercel.app/api/v1/${contentType}/trending`);
+			const res = await axios.get(`${import.meta.env.VITE_BUILD_LINK}/api/v1/${contentType}/trending`);
 			setTrendingContent(res.data.content);
 		};
 
