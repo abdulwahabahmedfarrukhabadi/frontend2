@@ -64,10 +64,11 @@ export const useAuthStore = create((set) => ({
         baseURL: "https://backend-dun-iota.vercel.app/api/v1",  // Your base URL
         url: "/auth/authCheck",  // URL for the endpoint
         headers: {
-          Authorization: `Bearer ${token}`,  // Send the token as a Bearer token in the headers
+          "Authorization": `Bearer ${token}`, 
+          "Content-Type": "application/json", // Send the token as a Bearer token in the headers
         },
         data: {},  // No body data needed for this action
-        withCredentials: true,  // If required to include credentials like cookies
+        credentials: "include",  // If required to include credentials like cookies
       });
 
       set({ user: response.data.user, isCheckingAuth: false });
